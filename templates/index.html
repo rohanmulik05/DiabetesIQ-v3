@@ -647,6 +647,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
   background:var(--border2);
   color:var(--muted2);font-size:0.5rem;cursor:help;
   position:relative;
+  flex-shrink:0;
 }
 
 .tip:hover::after {
@@ -656,6 +657,22 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
   border-radius:6px;padding:5px 8px;font-size:0.58rem;
   white-space:nowrap;z-index:20;color:var(--text);pointer-events:none;
   font-family:'Syne Mono',monospace;
+}
+
+/* tip inside toggle-field */
+.toggle-field .tip {
+  width:12px;height:12px;
+  background:rgba(74,96,128,0.5);
+  margin-left:6px;
+}
+
+.toggle-field .tip:hover::after {
+  bottom:130%;
+  left:auto;right:0;
+  transform:none;
+  white-space:normal;
+  width:160px;
+  line-height:1.5;
 }
 
 .section-title {
@@ -794,6 +811,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
 
   /* Tooltips: stay on screen */
   .tip:hover::after { left:0; transform:translateX(0); white-space:normal; width:150px; }
+  .toggle-field .tip:hover::after { right:0; left:auto; width:140px; }
 }
 </style>
 </head>
@@ -964,72 +982,72 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
           <div class="card-label" style="margin-bottom:12px">Symptoms (toggle all that apply)</div>
           <div class="toggles-grid">
             <div class="toggle-field" onclick="toggle(this,'l-polyuria')" id="tf-polyuria">
-              <span class="toggle-name">Polyuria</span>
+              <span class="toggle-name">Polyuria <span class="tip" data-tip="Excessive or abnormally large urination">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-polyuria" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-polydipsia')" id="tf-polydipsia">
-              <span class="toggle-name">Polydipsia</span>
+              <span class="toggle-name">Polydipsia <span class="tip" data-tip="Excessive or abnormal thirst">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-polydipsia" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-weightloss')" id="tf-weightloss">
-              <span class="toggle-name">Sudden Weight Loss</span>
+              <span class="toggle-name">Sudden Weight Loss <span class="tip" data-tip="Rapid, unexplained drop in body weight">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-weightloss" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-weakness')" id="tf-weakness">
-              <span class="toggle-name">Weakness</span>
+              <span class="toggle-name">Weakness <span class="tip" data-tip="General physical fatigue or lack of strength">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-weakness" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-polyphagia')" id="tf-polyphagia">
-              <span class="toggle-name">Polyphagia</span>
+              <span class="toggle-name">Polyphagia <span class="tip" data-tip="Excessive hunger or increased appetite">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-polyphagia" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-thrush')" id="tf-thrush">
-              <span class="toggle-name">Genital Thrush</span>
+              <span class="toggle-name">Genital Thrush <span class="tip" data-tip="Fungal infection in genital area (Candida)">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-thrush" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-visual')" id="tf-visual">
-              <span class="toggle-name">Visual Blurring</span>
+              <span class="toggle-name">Visual Blurring <span class="tip" data-tip="Blurred or fluctuating vision">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-visual" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-itching')" id="tf-itching">
-              <span class="toggle-name">Itching</span>
+              <span class="toggle-name">Itching <span class="tip" data-tip="Persistent skin itching, often due to dry skin or poor circulation">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-itching" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-irritability')" id="tf-irritability">
-              <span class="toggle-name">Irritability</span>
+              <span class="toggle-name">Irritability <span class="tip" data-tip="Mood changes or emotional instability linked to blood sugar swings">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-irritability" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-healing')" id="tf-healing">
-              <span class="toggle-name">Delayed Healing</span>
+              <span class="toggle-name">Delayed Healing <span class="tip" data-tip="Wounds or cuts that heal unusually slowly">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-healing" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-paresis')" id="tf-paresis">
-              <span class="toggle-name">Partial Paresis</span>
+              <span class="toggle-name">Partial Paresis <span class="tip" data-tip="Muscle weakness or partial loss of movement in limbs">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-paresis" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-stiffness')" id="tf-stiffness">
-              <span class="toggle-name">Muscle Stiffness</span>
+              <span class="toggle-name">Muscle Stiffness <span class="tip" data-tip="Tightness or rigidity in muscles, especially after rest">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-stiffness" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-alopecia')" id="tf-alopecia">
-              <span class="toggle-name">Alopecia</span>
+              <span class="toggle-name">Alopecia <span class="tip" data-tip="Hair loss or thinning, often linked to autoimmune or hormonal causes">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-alopecia" value="0">
             </div>
             <div class="toggle-field" onclick="toggle(this,'l-obesity')" id="tf-obesity">
-              <span class="toggle-name">Obesity</span>
+              <span class="toggle-name">Obesity <span class="tip" data-tip="BMI ≥ 30; excess body fat is a major risk factor for Type 2 diabetes">?</span></span>
               <div class="toggle-switch"></div>
               <input type="hidden" id="l-obesity" value="0">
             </div>
@@ -1154,20 +1172,20 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
             </div>
           </div>
           <div class="toggles-grid">
-            <div class="toggle-field" onclick="toggle(this,'e-polyuria')"><span class="toggle-name">Polyuria</span><div class="toggle-switch"></div><input type="hidden" id="e-polyuria" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-polydipsia')"><span class="toggle-name">Polydipsia</span><div class="toggle-switch"></div><input type="hidden" id="e-polydipsia" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-weightloss')"><span class="toggle-name">Sudden Weight Loss</span><div class="toggle-switch"></div><input type="hidden" id="e-weightloss" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-weakness')"><span class="toggle-name">Weakness</span><div class="toggle-switch"></div><input type="hidden" id="e-weakness" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-polyphagia')"><span class="toggle-name">Polyphagia</span><div class="toggle-switch"></div><input type="hidden" id="e-polyphagia" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-thrush')"><span class="toggle-name">Genital Thrush</span><div class="toggle-switch"></div><input type="hidden" id="e-thrush" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-visual')"><span class="toggle-name">Visual Blurring</span><div class="toggle-switch"></div><input type="hidden" id="e-visual" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-itching')"><span class="toggle-name">Itching</span><div class="toggle-switch"></div><input type="hidden" id="e-itching" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-irritability')"><span class="toggle-name">Irritability</span><div class="toggle-switch"></div><input type="hidden" id="e-irritability" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-healing')"><span class="toggle-name">Delayed Healing</span><div class="toggle-switch"></div><input type="hidden" id="e-healing" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-paresis')"><span class="toggle-name">Partial Paresis</span><div class="toggle-switch"></div><input type="hidden" id="e-paresis" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-stiffness')"><span class="toggle-name">Muscle Stiffness</span><div class="toggle-switch"></div><input type="hidden" id="e-stiffness" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-alopecia')"><span class="toggle-name">Alopecia</span><div class="toggle-switch"></div><input type="hidden" id="e-alopecia" value="0"></div>
-            <div class="toggle-field" onclick="toggle(this,'e-obesity')"><span class="toggle-name">Obesity</span><div class="toggle-switch"></div><input type="hidden" id="e-obesity" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-polyuria')"><span class="toggle-name">Polyuria <span class="tip" data-tip="Excessive or abnormally large urination">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-polyuria" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-polydipsia')"><span class="toggle-name">Polydipsia <span class="tip" data-tip="Excessive or abnormal thirst">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-polydipsia" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-weightloss')"><span class="toggle-name">Sudden Weight Loss <span class="tip" data-tip="Rapid, unexplained drop in body weight">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-weightloss" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-weakness')"><span class="toggle-name">Weakness <span class="tip" data-tip="General physical fatigue or lack of strength">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-weakness" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-polyphagia')"><span class="toggle-name">Polyphagia <span class="tip" data-tip="Excessive hunger or increased appetite">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-polyphagia" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-thrush')"><span class="toggle-name">Genital Thrush <span class="tip" data-tip="Fungal infection in genital area (Candida)">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-thrush" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-visual')"><span class="toggle-name">Visual Blurring <span class="tip" data-tip="Blurred or fluctuating vision">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-visual" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-itching')"><span class="toggle-name">Itching <span class="tip" data-tip="Persistent skin itching, often due to dry skin or poor circulation">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-itching" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-irritability')"><span class="toggle-name">Irritability <span class="tip" data-tip="Mood changes linked to blood sugar swings">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-irritability" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-healing')"><span class="toggle-name">Delayed Healing <span class="tip" data-tip="Wounds or cuts that heal unusually slowly">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-healing" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-paresis')"><span class="toggle-name">Partial Paresis <span class="tip" data-tip="Muscle weakness or partial loss of movement in limbs">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-paresis" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-stiffness')"><span class="toggle-name">Muscle Stiffness <span class="tip" data-tip="Tightness or rigidity in muscles, especially after rest">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-stiffness" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-alopecia')"><span class="toggle-name">Alopecia <span class="tip" data-tip="Hair loss linked to autoimmune or hormonal causes">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-alopecia" value="0"></div>
+            <div class="toggle-field" onclick="toggle(this,'e-obesity')"><span class="toggle-name">Obesity <span class="tip" data-tip="BMI ≥ 30; major risk factor for Type 2 diabetes">?</span></span><div class="toggle-switch"></div><input type="hidden" id="e-obesity" value="0"></div>
           </div>
 
           <div class="err-msg" id="e-err">Please fill in all clinical fields, select gender, and enter age.</div>
