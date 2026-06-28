@@ -668,11 +668,24 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
 
 .toggle-field .tip:hover::after {
   bottom:130%;
-  left:auto;right:0;
-  transform:none;
+  left:50%;
+  transform:translateX(-50%);
   white-space:normal;
-  width:160px;
+  width:170px;
   line-height:1.5;
+}
+
+/* JS adds .tip-left or .tip-right to override position */
+.toggle-field .tip.tip-left:hover::after {
+  left:0;
+  right:auto;
+  transform:none;
+}
+
+.toggle-field .tip.tip-right:hover::after {
+  left:auto;
+  right:0;
+  transform:none;
 }
 
 .section-title {
@@ -809,9 +822,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.4);}
   .disclaimer { font-size:0.52rem; }
   .err-msg { font-size:0.58rem; }
 
-  /* Tooltips: stay on screen */
-  .tip:hover::after { left:0; transform:translateX(0); white-space:normal; width:150px; }
-  .toggle-field .tip:hover::after { right:0; left:auto; width:140px; }
+  /* Tooltips: stay on screen — JS handles toggle tips; clamp regular tips */
+  .tip:hover::after { white-space:normal; width:150px; }
+  .toggle-field .tip:hover::after { width:150px; }
 }
 </style>
 </head>
@@ -1430,10 +1443,20 @@ async function runClinical() {
 // ── Lifestyle Prediction ──
 async function runLifestyle() {
   const age = parseFloat(document.getElementById('l-age').value);
+  const symptomIds = ['l-polyuria','l-polydipsia','l-weightloss','l-weakness','l-polyphagia',
+    'l-thrush','l-visual','l-itching','l-irritability','l-healing','l-paresis','l-stiffness',
+    'l-alopecia','l-obesity'];
+  const anySymptom = symptomIds.some(id => document.getElementById(id).value === '1');
+  const errEl = document.getElementById('l-err');
   if (genderVal === null || isNaN(age)) {
-    document.getElementById('l-err').style.display='block'; return;
+    errEl.textContent = 'Please select gender and enter age before predicting.';
+    errEl.style.display = 'block'; return;
   }
-  document.getElementById('l-err').style.display='none';
+  if (!anySymptom) {
+    errEl.textContent = 'Please select at least one symptom before predicting.';
+    errEl.style.display = 'block'; return;
+  }
+  errEl.style.display = 'none';
 
   setLoading('btn-l', true);
   const g = id => parseInt(document.getElementById(id).value);
@@ -1551,6 +1574,32 @@ function resetCombined() { resetClinical(); resetLifestyle(); }
 
 // Check status on load
 checkStatus();
+
+// ── Smart tooltip positioning ──
+// Runs once on load: checks each toggle .tip and assigns .tip-left or .tip-right
+// so the tooltip never overflows off either screen edge.
+function positionToggleTips() {
+  document.querySelectorAll('.toggle-field .tip').forEach(tip => {
+    tip.classList.remove('tip-left','tip-right');
+    const rect = tip.getBoundingClientRect();
+    const tooltipWidth = 170;
+    const spaceRight = window.innerWidth - rect.right;
+    const spaceLeft  = rect.left;
+    const halfTip    = tooltipWidth / 2;
+
+    if (spaceRight < halfTip && spaceLeft >= halfTip) {
+      // not enough room on the right — anchor to right edge of tip
+      tip.classList.add('tip-right');
+    } else if (spaceLeft < halfTip) {
+      // not enough room on the left — anchor to left edge of tip
+      tip.classList.add('tip-left');
+    }
+    // else centre is fine, no class needed
+  });
+}
+
+positionToggleTips();
+window.addEventListener('resize', positionToggleTips);
 </script>
 </body>
 </html>
